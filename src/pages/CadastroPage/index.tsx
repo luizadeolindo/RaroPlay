@@ -104,6 +104,7 @@ export const CadastroPage = () => {
                 />
                 <button type="button" onClick={hidePassword}>
                   <img
+                    alt="icon olho"
                     src={
                       showPassword ? iconOffHidePassword : iconOnHidePassword
                     }
@@ -132,7 +133,7 @@ export const CadastroPage = () => {
             {loading ? "Carregando..." : "Cadastrar"}
           </Button>
           <Link to="/login">
-            <img src={arrowBack} /> Voltar para login
+            <img alt="icon arrow back" src={arrowBack} /> Voltar para login
           </Link>
         </div>
         {erro ? (
