@@ -75,22 +75,17 @@ export const VideoPlayer = ({
         <div className="titulo">
           <h1>
             {nome}{" "}
-            {isAuthenticated ? (
+            {isAuthenticated && (
               <button
                 className="favoritee"
                 onClick={(e) => handleFavorite(e, id)}
               >
                 {checkIThatVideoIsAfavoriteVideo(id) ? (
-                  <img src={starFavorited} alt="icon estrela preenchida" />
+                  <img src={starFavorited} alt="" />
                 ) : (
-                  <img
-                    src={starNotFavorited}
-                    alt="icon estrela não preenchida"
-                  />
+                  <img src={starNotFavorited} alt="" />
                 )}
               </button>
-            ) : (
-              <></>
             )}
           </h1>
           <div className="createdAt">
@@ -98,7 +93,7 @@ export const VideoPlayer = ({
           </div>
         </div>
         <div className="v">
-          {video.thumbUrl ? (
+          {video.thumbUrl && (
             <ReactPlayer
               muted={true}
               width={"100%"}
@@ -108,8 +103,6 @@ export const VideoPlayer = ({
               url={url}
               light={thumbUrl}
             />
-          ) : (
-            <></>
           )}
         </div>
       </div>
