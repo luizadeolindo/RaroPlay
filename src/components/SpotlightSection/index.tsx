@@ -7,7 +7,7 @@ export const SpotlightSection = () => {
 
   return (
     <>
-      {!isAuthenticated ? (
+      {!isAuthenticated && (
         <div className="spotlight-container">
           <section className="spotlight-section">
             <div className="spotlight-info">
@@ -37,8 +37,6 @@ export const SpotlightSection = () => {
             </a>
           </section>
         </div>
-      ) : (
-        <></>
       )}
     </>
   );
