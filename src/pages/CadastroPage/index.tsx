@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
+import { version as uuidVersion } from "uuid";
+import { validate as uuidValidate } from "uuid";
 import { Button } from "../../components/Button";
 import { Container } from "../../components/Container";
-import { FormTitle } from "../../components/FormTitle";
+import { Titulo } from "../../components/Titulo";
 import arrowBack from "../../assets/icons/elements/arrow-back.svg";
 import { HeaderForm } from "../../components/HeaderForm";
 import iconOffHidePassword from "../../assets/icons/elements/senha-exibir.svg";
@@ -27,6 +29,10 @@ export const CadastroPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  function uuidValidateV4(uuid: string) {
+    return uuidValidate(uuid) && uuidVersion(uuid) === 4;
+  }
+
   const registerNewUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -34,7 +40,7 @@ export const CadastroPage = () => {
     setErro("");
     setMensagem("");
 
-    if (codigoAcesso === "f17af5f0-b5cd-4faf-b5d5-0037b35762f6") {
+    if (uuidValidateV4(codigoAcesso)) {
       try {
         const url = `/auth/cadastrar`;
         const response = await apiClient.post(url, {
@@ -63,7 +69,7 @@ export const CadastroPage = () => {
       <HeaderForm />
       <form className="containerCadastro" onSubmit={registerNewUser}>
         <div className="cadastroHeader">
-          <FormTitle title="Cadastro" />
+          <Titulo title="Cadastro" />
           <p>Desenvolva e amplie seu potencial na tecnologia.</p>
         </div>
         <div className="cadastroInputField">
@@ -98,6 +104,7 @@ export const CadastroPage = () => {
                 />
                 <button type="button" onClick={hidePassword}>
                   <img
+                    alt="icon olho"
                     src={
                       showPassword ? iconOffHidePassword : iconOnHidePassword
                     }
@@ -126,7 +133,7 @@ export const CadastroPage = () => {
             {loading ? "Carregando..." : "Cadastrar"}
           </Button>
           <Link to="/login">
-            <img src={arrowBack} /> Voltar para login
+            <img alt="icon arrow back" src={arrowBack} /> Voltar para login
           </Link>
         </div>
         {erro ? (

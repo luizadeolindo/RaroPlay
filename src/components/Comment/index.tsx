@@ -84,11 +84,11 @@ export const Comment = ({ comentario, comments }: CommentProps) => {
 
   return (
     <div className="comment">
-      <img src={comentario.aluno.foto} alt="" />
-      <div className="ttttttttt">
+      <img src={comentario.aluno.foto} alt="foto aluno" />
+      <div className="commentContainer">
         <h2>{comentario.aluno.nome}</h2>
         <div className="commentBox">
-          <p className={edit ? "bbb" : ""}>{comentario.texto}</p>
+          <p className={edit ? "editable" : ""}>{comentario.texto}</p>
           <div className="editComment">
             {comentario.aluno.id === ID ? (
               <form onSubmit={editarComment}>
@@ -97,7 +97,7 @@ export const Comment = ({ comentario, comments }: CommentProps) => {
                   value={novoTexto}
                   placeholder="Edite o seu comentário..."
                   onChange={(e) => setNovoTexto(e.target.value)}
-                  className={edit ? "aaa" : "bbb"}
+                  className={edit ? "showEdit" : "editable"}
                 />
               </form>
             ) : (
@@ -107,40 +107,44 @@ export const Comment = ({ comentario, comments }: CommentProps) => {
         </div>
         <div className="thumbs">
           <div className="votes">
-            <div className="x">
+            <div className="voteContainer">
               <img
                 src={
                   comentario.meuVote?.vote === "up"
                     ? thumbsUpFilled
                     : thumbsUpOutline
                 }
-                alt=""
+                alt="upvote"
                 onClick={curtir}
               />
               {comentario.upVotes}
             </div>
-            <div className="x">
+            <div className="voteContainer">
               <img
                 src={
                   comentario.meuVote?.vote === "down"
                     ? thumbsDownFilled
                     : thumbsDownOutline
                 }
-                alt=""
+                alt="downvote"
                 onClick={descurtir}
               />
               {comentario.downVotes}
             </div>
           </div>
-          <div className="xx">
-            <div className="xx-options">
+          <div className="editContainer">
+            <div className="editContainer-options">
               {comentario.aluno.id === ID ? (
-                <img src={deleteSvg} alt="" onClick={deleteComment} />
+                <img
+                  src={deleteSvg}
+                  alt="icon lixeira"
+                  onClick={deleteComment}
+                />
               ) : (
                 <></>
               )}
               {comentario.aluno.id === ID ? (
-                <img src={editSvg} alt="" onClick={editComment} />
+                <img src={editSvg} alt="icon" onClick={editComment} />
               ) : (
                 <></>
               )}

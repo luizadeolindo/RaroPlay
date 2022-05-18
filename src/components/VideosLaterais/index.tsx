@@ -7,7 +7,7 @@ import { useAuthenticated } from "../VerifyAuth";
 import { VideoThumbnailProps } from "../Video/VideoThumbnailTypes";
 import "./videosLaterais.css";
 
-type FormTitleProps = {
+type TituloProps = {
   videoLateral: {
     id: string;
     dataPublicacao: string;
@@ -22,7 +22,7 @@ export const VideosLaterais = ({
   videoLateral,
   favoriteVideos,
   getFavoriteVideos,
-}: FormTitleProps) => {
+}: TituloProps) => {
   const { id, dataPublicacao, thumbUrl, descricao } = videoLateral;
   const dataFormatada = new Date(dataPublicacao).toLocaleDateString("pt-br");
   const { isAuthenticated } = useAuthenticated();
@@ -84,18 +84,23 @@ export const VideosLaterais = ({
       <div className="aside">
         <Link to={`/videos/${id}`}>
           <div className="videosLaterais">
-            <img src={thumbUrl} alt="" />
-            {isAuthenticated && (
+            <img src={thumbUrl} alt="videothumb" />
+            {isAuthenticated ? (
               <button
                 className="favorite"
                 onClick={(e) => handleFavorite(e, id)}
               >
                 {checkIThatVideoIsAfavoriteVideo(id) ? (
-                  <img src={starFavorited} alt="" />
+                  <img src={starFavorited} alt="icon estrela preenchida" />
                 ) : (
-                  <img src={starNotFavorited} alt="" />
+                  <img
+                    src={starNotFavorited}
+                    alt="icon estrela não preenchida"
+                  />
                 )}
               </button>
+            ) : (
+              <></>
             )}
           </div>
           <div className="textoContainer">
