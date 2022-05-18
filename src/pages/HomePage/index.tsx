@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAuthenticated } from "../../components/VerifyAuth";
 import Playlist from "../../components/Playlist";
 import Header from "../../components/Header";
 import { VideoThumbnailProps } from "../../components/Video/VideoThumbnailTypes";
@@ -10,11 +9,8 @@ import { SpotlightSection } from "../../components/SpotlightSection";
 import { Hero } from "../../components/Hero";
 
 const HomePage = () => {
-  const { isAuthenticated } = useAuthenticated();
   const [videos, setVideos] = useState<VideoThumbnailProps[]>([]);
-  const [favoriteVideos, setFavoriteVideos] = useState<VideoThumbnailProps[]>(
-    []
-  );
+  const [favoriteVideos, setFavoriteVideos] = useState<VideoThumbnailProps[]>([],);
   const [loading, setLoading] = useState(false);
 
   const buscarVideos = async () => {
@@ -35,6 +31,7 @@ const HomePage = () => {
     try {
       const response = await apiClient.get(url);
       setFavoriteVideos(response.data);
+      
     } catch (error) {
       console.error(error);
     }
@@ -42,19 +39,14 @@ const HomePage = () => {
 
   useEffect(() => {
     buscarVideos();
-
-    if (isAuthenticated) getFavoriteVideos();
+    getFavoriteVideos();
   }, []);
 
   return (
     <>
-      <Header buscarVideos={buscarVideos} />
+      <Header buscarVideos={buscarVideos}/>
       <Hero />
-      <Playlist
-        videos={videos}
-        favoriteVideos={favoriteVideos}
-        getFavoriteVideos={getFavoriteVideos}
-      />
+      <Playlist videos={videos} favoriteVideos={favoriteVideos} getFavoriteVideos={getFavoriteVideos}/>
       <SpotlightSection />
       <CTASection />
       <Footer />

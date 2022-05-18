@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Container } from "../../components/Container";
-import { Titulo } from "../../components/Titulo";
+import { FormTitle } from "../../components/FormTitle";
 import { HeaderForm } from "../../components/HeaderForm";
 import iconOffHidePassword from "../../assets/icons/elements/senha-exibir.svg";
 import iconOnHidePassword from "../../assets/icons/elements/senha-esconder.svg";
@@ -59,7 +59,7 @@ export const LoginPage = () => {
       <HeaderForm />
       <form className="containerLogin" onSubmit={autenticaUsuario}>
         <div className="loginHeader">
-          <Titulo title="Login" />
+          <FormTitle title="Login" />
           <p>Informe seu e-mail e senha para acessar a plataforma.</p>
         </div>
         <div className="loginInputField">
@@ -84,7 +84,6 @@ export const LoginPage = () => {
                 />
                 <button onClick={hidePassword} type="button">
                   <img
-                    alt="icon olho"
                     src={
                       showPassword ? iconOffHidePassword : iconOnHidePassword
                     }

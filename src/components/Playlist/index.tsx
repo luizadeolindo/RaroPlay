@@ -7,13 +7,8 @@ import { PlaylistTitle } from "../PlaylistTitle";
 import { PlaylistContainer } from "../PlaylistContainer";
 import { Video } from "../Video";
 import { SimpleSlider } from "../SimpleSlider";
-import { PlaylistByTopics } from "../PlaylistByTopics";
 
-const Playlist: React.FC<PlaylistProps> = ({
-  videos,
-  favoriteVideos,
-  getFavoriteVideos,
-}) => {
+const Playlist: React.FC<PlaylistProps> = ({ videos, favoriteVideos, getFavoriteVideos }) => {
   const { isAuthenticated } = useAuthenticated();
 
   const favoriteVideosId = useMemo<string[]>(() => {
@@ -32,7 +27,7 @@ const Playlist: React.FC<PlaylistProps> = ({
 
     try {
       await apiClient.post(url);
-      getFavoriteVideos();
+      getFavoriteVideos()
     } catch (error) {
       console.log("Error to favorite a new video");
     }
@@ -40,15 +35,12 @@ const Playlist: React.FC<PlaylistProps> = ({
 
   const handleRemoveAFavorite = async (videoId: string) => {
     const url = `/videos/${videoId}/favoritos`;
-
+    
     try {
       await apiClient.delete(url);
-      getFavoriteVideos();
-      return;
+      getFavoriteVideos()
     } catch (error) {
       console.log("Error to favorite a new video");
-
-      return;
     }
   };
 
@@ -66,42 +58,228 @@ const Playlist: React.FC<PlaylistProps> = ({
 
     if (checkIThatVideoIsAfavoriteVideo(id)) {
       handleRemoveAFavorite(id);
-      return;
     } else {
       handleAddNewFavorite(id);
-      return;
     }
   };
 
   return (
-    <div className="home">
-      {isAuthenticated ? (
+    <div className="home">      
+      {isAuthenticated && (
         <PlaylistContainer>
-          <PlaylistTitle title="Favoritos" />
-          {favoriteVideos.length === 0 ? (
-            "Você ainda não possui vídeos favoritos a serem exibidos aqui." +
-            " Para começar a favoritar, clique no ícone de estrela."
-          ) : (
-            <SimpleSlider>
-              {favoriteVideos.map((video) => (
-                <VideoFavorited
-                  video={video}
-                  key={video.id}
-                  handleRemoveAFavorite={handleRemoveAFavorite}
-                />
-              ))}
-            </SimpleSlider>
-          )}
+          <PlaylistTitle title="Favoritos" />                              
+          {favoriteVideos.length === 0 ? "Você ainda não possui vídeos favoritos a serem exibidos aqui." +
+    " Para começar a favoritar, clique no ícone de estrela.":
+          <SimpleSlider>
+              {favoriteVideos.map((video) => (              
+                  <VideoFavorited
+                    video={video}
+                    key={video.id}
+                    handleRemoveAFavorite={handleRemoveAFavorite}/>
+                  )
+                )            
+              }
+            </SimpleSlider> }
         </PlaylistContainer>
-      ) : (
-        <></>
       )}
 
-      <PlaylistByTopics
-        videos={videos}
-        handleFavorite={handleFavorite}
-        checkIThatVideoIsAfavoriteVideo={checkIThatVideoIsAfavoriteVideo}
-      />
+      <PlaylistContainer>
+        <PlaylistTitle title="Aulão" />
+        <SimpleSlider>
+          {videos
+            .filter((v) => v.topico === "aulão")
+            .map((video) => (
+              <Video
+                video={video}
+                key={video.id}
+                handleFavorite={handleFavorite}
+                checkIThatVideoIsAfavoriteVideo={
+                  checkIThatVideoIsAfavoriteVideo
+                }
+              />
+            ))}
+        </SimpleSlider>
+      </PlaylistContainer>
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 01" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 01")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 02" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 02")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 03" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 03")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 04" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 04")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 05" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 05")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 06" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 06")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 07" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 07")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Semana 08" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "semana 08")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
+
+      {isAuthenticated && (
+        <PlaylistContainer>
+          <PlaylistTitle title="Monitoria" />
+          <SimpleSlider>
+            {videos
+              .filter((v) => v.topico === "monitoria")
+              .map((video) => (
+                <Video
+                  video={video}
+                  key={video.id}
+                  handleFavorite={handleFavorite}
+                  checkIThatVideoIsAfavoriteVideo={
+                    checkIThatVideoIsAfavoriteVideo
+                  }
+                />
+              ))}
+          </SimpleSlider>
+        </PlaylistContainer>
+      )}
     </div>
   );
 };
